@@ -4,3 +4,31 @@ Activate virtual env - .venv\Scripts\activate
 Install the requirements : pip install -r requirements.txt
 
 To output all installed packages with exact versions : pip freeze
+
+
+
+Work on your application normally.
+
+When V1 is complete:
+
+git status
+
+Make sure it says:
+
+On branch v1
+
+Then:
+
+git add .
+git commit -m "Complete Version 1"
+
+Then push V1:
+
+git push -u origin v1
+
+Now GitHub will have:
+
+main
+v1
+
+with your V1 code on v1.
