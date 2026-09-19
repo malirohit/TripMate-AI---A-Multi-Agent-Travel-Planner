@@ -1,0 +1,6 @@
+Create virtual env    - python -m venv .venv
+Activate virtual env - .venv\Scripts\activate
+
+Install the requirements : pip install -r requirements.txt
+
+To output all installed packages with exact versions : pip freeze
