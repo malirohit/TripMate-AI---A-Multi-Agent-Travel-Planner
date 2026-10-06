@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TripMate AI</title>
   <link rel="stylesheet" href="/static/style.css">
+
 </head>
+
 <body>
+
   <div class="page-bg">
     <div class="gradient-circle circle-1"></div>
     <div class="gradient-circle circle-2"></div>
@@ -15,6 +20,7 @@
 
   <main class="app-container">
 
+    <!-- Hero Section -->
     <section class="hero-section">
 
       <div class="badge">
@@ -22,6 +28,7 @@
       </div>
 
       <h1>Plan Your Perfect Trip with AI</h1>
+
       <p>
         Search flights, discover hotels, check weather, assess your budget,
         and review the AI-generated draft before the final itinerary is created.
@@ -29,31 +36,42 @@
       
     </section>
 
+    <!-- Query Section -->
     <section class="planner-card">
+
+      <!-- Query Section Header -->
       <div class="card-header">
+
         <div>
           <h2>Where do you want to go?</h2>
           <p>
             Example: Plan a complete 7 days Japan trip from Bangladesh under 2 lakhs.
           </p>
         </div>
+
         <div class="status-pill">
           <span class="status-dot"></span>
           Online
         </div>
+
       </div>
 
+      <!-- Input Area -->
       <div class="input-area">
+
         <textarea
           id="userInput"
           placeholder="Plan a complete 7 days Japan trip including flights, hotels and sightseeing under 2 lakhs..."
         ></textarea>
+
         <button id="sendBtn" onclick="sendMessage()">
           <span id="btnText">Generate Draft</span>
           <span id="btnLoader" class="loader hidden"></span>
         </button>
+
       </div>
 
+      <!-- Quick Prompts -->
       <div class="quick-prompts">
         <button onclick="setPrompt('Plan a complete 7 days Japan trip from Bangladesh including flights, hotels and sightseeing under 2 lakhs.')">
           Japan Trip
@@ -68,21 +86,26 @@
           Global Flights
         </button>
       </div>
+
     </section>
 
+    <!--  -->
     <section id="workflowSection" class="workflow-section hidden">
+
       <div class="workflow-header">
         <div>
           <span class="eyebrow">Supervisor Agent</span>
           <h2>Execution Plan</h2>
         </div>
-        <span id="guardrailBadge" class="guardrail-badge">Guardrail passed</span>
+        <span id="guardrailBadge" class="guardrail-badge">Guardrail Passed</span>
       </div>
       <p id="supervisorReasoning" class="supervisor-reasoning"></p>
       <div id="agentChips" class="agent-chips"></div>
     </section>
 
+    <!-- Result Section -->
     <section id="resultSection" class="result-section hidden">
+
       <div class="result-header">
         <div>
           <h2 id="resultTitle">Your AI Travel Plan</h2>
@@ -98,13 +121,20 @@
         <h1 class="pdf-title">AI Travel Plan</h1>
         <div id="resultBox" class="result-box"></div>
       </div>
+
     </section>
 
+    <!-- Approval Section -->
     <section id="approvalSection" class="approval-section hidden">
+
       <div class="approval-icon">👤</div>
+
       <div class="approval-content">
-        <span class="eyebrow">Human-in-the-Loop</span>
+
+        <span class="eyebrow">Human-In-The-Loop</span>
+
         <h2>Review the draft itinerary</h2>
+
         <p id="approvalRequest">
           Approve the draft or provide feedback before the final plan is generated.
         </p>
@@ -119,10 +149,12 @@
           <button id="approveBtn" class="approve-btn" onclick="submitApproval(true)">
             Approve & Generate Final
           </button>
-          <button id="reviseBtn" class="revise-btn" onclick="submitApproval(false)">
-            Revise Using Feedback
+          <!-- Feedback must be provided -->
+          <button id="reviseBtn" class="revise-btn" onclick="submitApproval(false)"> 
+            Revise Using Feedback 
           </button>
         </div>
+
       </div>
     </section>
 

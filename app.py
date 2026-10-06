@@ -48,18 +48,35 @@ class ApprovalRequest(BaseModel):
 
 # ====================================================================================================================================================================================================================
 
+
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
+
     return templates.TemplateResponse(
         request=request,
         name="index.html",
         context={},
     )
 
+@app.get("/health")
+async def health_check():
+
+    return {
+        "status": "ok",
+        "message": "TripMate AI API is running",
+        "features": [
+            "supervisor_agent",
+            "input_guardrail",
+            "human_in_the_loop",
+        ],
+    }
+
 
 @app.post("/api/travel")
 async def travel_planner(request_data: TravelRequest):
+
     try:
+
         user_message = request_data.message.strip()
 
         if not user_message:
@@ -84,7 +101,9 @@ async def travel_planner(request_data: TravelRequest):
         )
 
     except Exception as exc:
+
         print("ERROR:", exc)
+
         traceback.print_exc()
 
         return JSONResponse(
@@ -98,8 +117,11 @@ async def travel_planner(request_data: TravelRequest):
 
 @app.post("/api/travel/approve")
 async def approve_travel_plan(request_data: ApprovalRequest):
+
     try:
+
         if not request_data.approved and not request_data.feedback.strip():
+
             return JSONResponse(
                 status_code=400,
                 content={
@@ -132,19 +154,6 @@ async def approve_travel_plan(request_data: ApprovalRequest):
                 "error": str(exc),
             },
         )
-
-
-@app.get("/health")
-async def health_check():
-    return {
-        "status": "ok",
-        "message": "TripMate AI API is running",
-        "features": [
-            "supervisor_agent",
-            "input_guardrail",
-            "human_in_the_loop",
-        ],
-    }
 
 
 @app.get("/favicon.ico")
