@@ -49,15 +49,7 @@ class ApprovalRequest(BaseModel):
 # ====================================================================================================================================================================================================================
 
 
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
-
-    return templates.TemplateResponse(
-        request=request,
-        name="index.html",
-        context={},
-    )
-
+# Health Check Route
 @app.get("/health")
 async def health_check():
 
@@ -72,6 +64,18 @@ async def health_check():
     }
 
 
+# Home Page Route
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={},
+    )
+
+
+# Travel Planner Route
 @app.post("/api/travel")
 async def travel_planner(request_data: TravelRequest):
 
@@ -84,7 +88,7 @@ async def travel_planner(request_data: TravelRequest):
                 status_code=400,
                 content={
                     "success": False,
-                    "error": "Message cannot be empty.",
+                    "error": "User Message Cannot Be Empty.",
                 },
             )
 
@@ -92,6 +96,9 @@ async def travel_planner(request_data: TravelRequest):
             user_input=user_message,
             thread_id=request_data.thread_id,
         )
+
+        # Debugging
+        print("Travel Agent Result:" + result)
 
         return JSONResponse(
             content={
@@ -115,11 +122,14 @@ async def travel_planner(request_data: TravelRequest):
         )
 
 
+# HITL Approval Route
 @app.post("/api/travel/approve")
 async def approve_travel_plan(request_data: ApprovalRequest):
 
     try:
 
+        # Validate that feedback is provided when rejecting the draft
+        # Means draft is rejected and feedback is empty, then return error
         if not request_data.approved and not request_data.feedback.strip():
 
             return JSONResponse(
@@ -156,6 +166,7 @@ async def approve_travel_plan(request_data: ApprovalRequest):
         )
 
 
+# Favicon Route - Browsers automatically try to request an icon for a website.
 @app.get("/favicon.ico")
 async def favicon():
     return JSONResponse(content={})

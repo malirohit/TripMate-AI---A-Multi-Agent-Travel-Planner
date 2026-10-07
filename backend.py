@@ -791,6 +791,7 @@ graph.add_edge("guardrail_blocked", END)
 # ===========================================================================
 # PostgreSQL Checkpointer 
 # ===========================================================================
+
 DATABASE_URL = get_database_url()
 
 _conn = psycopg.connect(
@@ -807,7 +808,7 @@ travel_graph = graph.compile(checkpointer=checkpointer)
 
 
 # ===========================================================================
-# FastAPI-Facing helpers
+# FastAPI - Facing Helpers
 # ===========================================================================
 
 def _interrupt_payload(result: dict[str, Any]) -> dict[str, Any] | None:
@@ -867,6 +868,8 @@ def _serialize_result(
         "llm_calls": result.get("llm_calls", 0),
     }
 
+#------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 def run_travel_agent(user_input: str, thread_id: str | None = None):
     """
@@ -919,6 +922,7 @@ def resume_travel_agent(
     config = {
         "configurable": {"thread_id": thread_id}
     }
+    
     result = travel_graph.invoke(
 
         Command(
